@@ -143,16 +143,34 @@
     .f-copy{color:#555;font-size:.72rem;letter-spacing:1px}
     .f-soc{margin-top:.6rem}
     .f-soc a{color:var(--red);text-decoration:none;margin:0 .6rem;font-size:.82rem}
-    @media(max-width:768px){.nav-links{display:none}.hamburger{display:block}.hero{padding:80px 1.5rem 20px}.hero-stats{gap:1.2rem}.section{padding:50px 1.25rem}}
+    /* ── GALLERY ── */
+    .gallery{background:#1a1a1a}
+    .gallery .sec-title{color:#fff}
+    .gal-tabs{display:flex;gap:.6rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+    .gal-tab{background:transparent;color:#aaa;border:1px solid #444;padding:8px 22px;font-family:'Oswald',sans-serif;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+    .gal-tab.active,.gal-tab:hover{background:var(--red);color:#fff;border-color:var(--red)}
+    .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
+    .gal-card{height:230px;background:#2a2a2a center/cover no-repeat;position:relative;cursor:pointer;overflow:hidden}
+    .gal-card:hover .gal-overlay{transform:translateY(0)}
+    .gal-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.88));padding:1rem 1.1rem;transform:translateY(100%);transition:transform .3s}
+    .gal-name{color:#fff;font-family:'Oswald',sans-serif;font-size:1rem;margin-bottom:.2rem;letter-spacing:.5px}
+    .gal-ach{color:var(--red);font-size:.75rem;letter-spacing:1px;font-family:'Oswald',sans-serif;text-transform:uppercase}
+    .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:2000;align-items:center;justify-content:center;padding:1rem}
+    .lb.open{display:flex}
+    .lb-inner{position:relative;max-width:900px;width:100%;text-align:center}
+    .lb img{max-width:100%;max-height:80vh;object-fit:contain;border:2px solid #333}
+    .lb-cap{color:#ccc;font-family:'Oswald',sans-serif;margin-top:.8rem;font-size:1rem;letter-spacing:1px}
+    .lb-close{position:absolute;top:-2rem;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
+    @media(max-width:768px){.nav-links{display:none}.hamburger{display:block}.hero{padding:80px 1.5rem 20px}.hero-stats{gap:1.2rem}.section{padding:50px 1.25rem}.gal-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.gal-card{height:170px}}
   </style>
 </head>
 <body>
   <nav>
     <a class="nav-logo" href="#hero"><img src="./logo.png" alt="KCA Logo"></a>
-    <div class="nav-links"><a href="#about">Για εμάς</a><a href="#departments">Τμήματα</a><a href="#coaches">Προπονητές</a><a href="#schedule">Πρόγραμμα</a><a href="#registration">Εγγραφή</a><a href="#contact">Επικοινωνία</a></div>
+    <div class="nav-links"><a href="#about">Για εμάς</a><a href="#departments">Τμήματα</a><a href="#coaches">Προπονητές</a><a href="#schedule">Πρόγραμμα</a><a href="#gallery">Gallery</a><a href="#registration">Εγγραφή</a><a href="#contact">Επικοινωνία</a></div>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
   </nav>
-  <div class="mobile-menu" id="mm"><a href="#about" onclick="closeMenu()">Για εμάς</a><a href="#departments" onclick="closeMenu()">Τμήματα</a><a href="#coaches" onclick="closeMenu()">Προπονητές</a><a href="#schedule" onclick="closeMenu()">Πρόγραμμα</a><a href="#registration" onclick="closeMenu()">Εγγραφή</a><a href="#contact" onclick="closeMenu()">Επικοινωνία</a></div>
+  <div class="mobile-menu" id="mm"><a href="#about" onclick="closeMenu()">Για εμάς</a><a href="#departments" onclick="closeMenu()">Τμήματα</a><a href="#coaches" onclick="closeMenu()">Προπονητές</a><a href="#schedule" onclick="closeMenu()">Πρόγραμμα</a><a href="#gallery" onclick="closeMenu()">Gallery</a><a href="#registration" onclick="closeMenu()">Εγγραφή</a><a href="#contact" onclick="closeMenu()">Επικοινωνία</a></div>
 
   <section class="hero" id="hero">
     <img src="./logo.png" alt="KCA Logo" class="hero-logo">
@@ -223,23 +241,74 @@
       <div class="tc"><div class="eyebrow">Εβδομαδιαίο</div><h2 class="sec-title">ΠΡΟΓΡΑΜΜΑ ΠΡΟΠΟΝΗΣΕΩΝ</h2><div class="divider"></div></div>
       <div class="sch-groups">
         <div class="sch-grp"><div class="sch-hdr">Δευτέρα · Τετάρτη · Παρασκευή</div>
-          <div class="sch-row"><div class="sch-tm">17:30</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Αρχάριοι</span></div>
-          <div class="sch-row"><div class="sch-tm">18:30</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Ημιπροχωρημένοι</span></div>
-          <div class="sch-row"><div class="sch-tm">19:30</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Προχωρημένοι</span></div>
-          <div class="sch-row"><div class="sch-tm">20:30</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Ενήλικες</span></div>
+          <div class="sch-row"><div class="sch-tm">17:30</div><div class="sch-nm">Αρχάριοι</div></div>
+          <div class="sch-row"><div class="sch-tm">18:30</div><div class="sch-nm">Ημιπροχωρημένοι</div></div>
+          <div class="sch-row"><div class="sch-tm">19:30</div><div class="sch-nm">Προχωρημένοι</div></div>
+          <div class="sch-row"><div class="sch-tm">20:30</div><div class="sch-nm">Ενήλικες</div></div>
         </div>
         <div class="sch-grp"><div class="sch-hdr">Τρίτη · Πέμπτη</div>
           <div class="sch-row"><div class="sch-tm">18:00</div><div class="sch-nm">Πρόγραμμα Ενδυνάμωσης</div><span class="b-e">Fitness</span></div>
           <div class="sch-row"><div class="sch-tm">19:30</div><div class="sch-nm">Αγωνιστικό Τμήμα</div><span class="b-a">Αγωνιστικό</span></div>
         </div>
         <div class="sch-grp"><div class="sch-hdr">Σάββατο</div>
-          <div class="sch-row"><div class="sch-tm">17:00</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Αρχάριοι</span></div>
-          <div class="sch-row"><div class="sch-tm">18:00</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Ημιπρ. / Προχωρ.</span></div>
-          <div class="sch-row"><div class="sch-tm">19:00</div><div class="sch-nm">Karate Wado-Ryu</div><span class="b-k">Προχωρ. / Ενήλικες</span></div>
+          <div class="sch-row"><div class="sch-tm">17:00</div><div class="sch-nm">Αρχάριοι</div></div>
+          <div class="sch-row"><div class="sch-tm">18:00</div><div class="sch-nm">Ημιπροχωρημένοι / Προχωρημένοι</div></div>
+          <div class="sch-row"><div class="sch-tm">19:00</div><div class="sch-nm">Προχωρημένοι / Ενήλικες</div></div>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="section gallery" id="gallery">
+    <div class="section-inner">
+      <div class="tc"><div class="eyebrow">Στιγμιότυπα</div><h2 class="sec-title">GALLERY</h2><div class="divider"></div></div>
+      <div class="gal-tabs">
+        <button class="gal-tab active" onclick="filterGal('all',this)">Όλες</button>
+        <button class="gal-tab" onclick="filterGal('dojo',this)">Χώρος &amp; Dojo</button>
+        <button class="gal-tab" onclick="filterGal('athletes',this)">Αθλητές &amp; Αγώνες</button>
+      </div>
+      <div class="gal-grid" id="galGrid">
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/giannakos.jpeg')" onclick="openLb('./images/giannakos.jpeg','🥇 Πρωταθλητής Ευρώπης','WKF Junior & Cadet European Championships — Prague 2022')">
+          <div class="gal-overlay"><div class="gal-name">🥇 Πρωταθλητής Ευρώπης</div><div class="gal-ach">WKF European Championships — Prague 2022</div></div>
+        </div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xaris_babis.jpg')" onclick="openLb('./images/xaris_babis.jpg','Πρωταθλητής Ελλάδος','Πανελλήνιο Πρωτάθλημα Νεανίδων — 1η Θέση')">
+          <div class="gal-overlay"><div class="gal-name">Πρωταθλητής Ελλάδος</div><div class="gal-ach">Πανελλήνιο Πρωτάθλημα Νεανίδων — 1η Θέση</div></div>
+        </div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/eli.jpg')" onclick="openLb('./images/eli.jpg','Πρωταθλήτρια Ελλάδος','Πανελλήνιο Πρωτάθλημα — Χρυσό Μετάλλιο')">
+          <div class="gal-overlay"><div class="gal-name">Πρωταθλήτρια Ελλάδος</div><div class="gal-ach">Πανελλήνιο Πρωτάθλημα — Χρυσό Μετάλλιο</div></div>
+        </div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/468793316_10161058122303022_906933911189158727_n.jpg')" onclick="openLb('./images/468793316_10161058122303022_906933911189158727_n.jpg','Αγωνιστικό Τμήμα','Πολλαπλές Διακρίσεις — Πανελλήνιοι Αγώνες')">
+          <div class="gal-overlay"><div class="gal-name">Αγωνιστικό Τμήμα</div><div class="gal-ach">Πολλαπλές Διακρίσεις — Πανελλήνιοι Αγώνες</div></div>
+        </div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/706651010_1532092198476633_2605190854448136597_n.jpg')" onclick="openLb('./images/706651010_1532092198476633_2605190854448136597_n.jpg','Με τον Προπονητή','Διεθνείς Αγώνες — Χρυσά Μετάλλια')">
+          <div class="gal-overlay"><div class="gal-name">Με τον Προπονητή</div><div class="gal-ach">Διεθνείς Αγώνες — Χρυσά Μετάλλια</div></div>
+        </div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/action1.png')" onclick="openLb('./images/action1.png','Αγωνιστικό Τμήμα','Kumite — Εθνικό Πρωτάθλημα')">
+          <div class="gal-overlay"><div class="gal-name">Αγωνιστικό Τμήμα</div><div class="gal-ach">Kumite — Εθνικό Πρωτάθλημα</div></div>
+        </div>
+        <div class="gal-card" data-cat="dojo" style="background-image:url('./images/20240619_190709.jpg')" onclick="openLb('./images/20240619_190709.jpg','Προπόνηση Παιδικού Τμήματος','Kumite Παιδιών — Το Dojo μας')">
+          <div class="gal-overlay"><div class="gal-name">Προπόνηση Παιδικού Τμήματος</div><div class="gal-ach">Kumite Παιδιών — Το Dojo μας</div></div>
+        </div>
+        <div class="gal-card" data-cat="dojo" style="background-image:url('./images/giannis.jpg')" onclick="openLb('./images/giannis.jpg','Επίδειξη Wado-Ryu','Εσωτερική Εκδήλωση — Dojo KCA')">
+          <div class="gal-overlay"><div class="gal-name">Επίδειξη Wado-Ryu</div><div class="gal-ach">Εσωτερική Εκδήλωση — Dojo KCA</div></div>
+        </div>
+        <div class="gal-card" data-cat="dojo" style="background-image:url('./images/20260207_200953.jpg')" onclick="openLb('./images/20260207_200953.jpg','Τελετή Αναβαθμίσεων','Παιδικό Τμήμα — Φεβρουάριος 2026')">
+          <div class="gal-overlay"><div class="gal-name">Τελετή Αναβαθμίσεων</div><div class="gal-ach">Παιδικό Τμήμα — Φεβρουάριος 2026</div></div>
+        </div>
+        <div class="gal-card" data-cat="dojo" style="background-image:url('./images/20260207_210546.jpg')" onclick="openLb('./images/20260207_210546.jpg','Τελετή Αναβαθμίσεων','Τμήμα Εφήβων & Ενηλίκων — Φεβρουάριος 2026')">
+          <div class="gal-overlay"><div class="gal-name">Τελετή Αναβαθμίσεων</div><div class="gal-ach">Τμήμα Εφήβων & Ενηλίκων — Φεβρουάριος 2026</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lb" id="lb" onclick="closeLb()">
+    <div class="lb-inner" onclick="event.stopPropagation()">
+      <button class="lb-close" onclick="closeLb()">✕</button>
+      <img id="lbImg" src="" alt="">
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
+  </div>
 
   <section class="section registration" id="registration">
     <div class="section-inner">
@@ -285,6 +354,24 @@
     function toggleMenu(){document.getElementById('mm').classList.toggle('open')}
     function closeMenu(){document.getElementById('mm').classList.remove('open')}
     window.addEventListener('scroll',closeMenu);
+    function filterGal(cat,btn){
+      document.querySelectorAll('.gal-card').forEach(function(el){
+        el.style.display=(cat==='all'||el.dataset.cat===cat)?'':'none';
+      });
+      document.querySelectorAll('.gal-tab').forEach(function(t){t.classList.remove('active')});
+      btn.classList.add('active');
+    }
+    function openLb(src,name,ach){
+      document.getElementById('lbImg').src=src;
+      document.getElementById('lbCap').textContent=name+(ach?' — '+ach:'');
+      document.getElementById('lb').classList.add('open');
+      document.body.style.overflow='hidden';
+    }
+    function closeLb(){
+      document.getElementById('lb').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
     async function handleSubmit(e){
       e.preventDefault();
       var b=e.target.querySelector('.fsubmit'),m=document.getElementById('formMsg');
