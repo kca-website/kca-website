@@ -143,7 +143,6 @@
     .f-copy{color:#555;font-size:.72rem;letter-spacing:1px}
     .f-soc{margin-top:.6rem}
     .f-soc a{color:var(--red);text-decoration:none;margin:0 .6rem;font-size:.82rem}
-    /* ── GALLERY ── */
     .gallery{background:#1a1a1a}
     .gallery .sec-title{color:#fff}
     .gal-tabs{display:flex;gap:.6rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
@@ -266,13 +265,14 @@
         <button class="gal-tab active" onclick="filterGal('all',this)">Όλες</button>
         <button class="gal-tab" onclick="filterGal('dojo',this)">Χώρος &amp; Dojo</button>
         <button class="gal-tab" onclick="filterGal('athletes',this)">Αθλητές &amp; Αγώνες</button>
+        <button class="gal-tab" onclick="filterGal('parakarate',this)">Παρακαράτε</button>
       </div>
       <div class="gal-grid" id="galGrid">
-        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/giannakos.jpeg')" onclick="openLb('./images/giannakos.jpeg','🥇 Χάρης Γιαννακός Πρωταθλητής Ευρώπης',' Χάρης Γιαννακός WKF Junior & Cadet European Championships — Prague 2022')">
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xarisgiannakos.jpg')" onclick="openLb('./images/xarisgiannakos.jpg','🥇 Χάρης Γιαννακός — Πρωταθλητής Ευρώπης','WKF Junior & Cadet European Championships — Prague 2022')">
           <div class="gal-overlay"><div class="gal-name">🥇 Πρωταθλητής Ευρώπης</div><div class="gal-ach">WKF European Championships — Prague 2022</div></div>
         </div>
-        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xaris_babis.jpg')" onclick="openLb('./images/xaris_babis.jpg','Πρωταθλητής Ελλάδος','Πανελλήνιο Πρωτάθλημα Νεανίδων — 1η Θέση')">
-          <div class="gal-overlay"><div class="gal-name">Πρωταθλητής Ελλάδος</div><div class="gal-ach">Πανελλήνιο Πρωτάθλημα Χάρης Γιαννάκος, Μπάμπης Καμπουγέρης  — 1η Θέση</div></div>
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xaris_babis_new.jpg')" onclick="openLb('./images/xaris_babis_new.jpg','Πρωταθλητές Ελλάδος','Χάρης Γιαννακός &amp; Μπάμπης Καμπουγέρης — Χρυσά Μετάλλια')">
+          <div class="gal-overlay"><div class="gal-name">Πρωταθλητές Ελλάδος</div><div class="gal-ach">Χάρης Γιαννακός &amp; Μπάμπης Καμπουγέρης — Χρυσά Μετάλλια</div></div>
         </div>
         <div class="gal-card" data-cat="athletes" style="background-image:url('./images/eli.jpg')" onclick="openLb('./images/eli.jpg','Πρωταθλήτρια Ελλάδος','Πανελλήνιο Πρωτάθλημα — Χρυσό Μετάλλιο')">
           <div class="gal-overlay"><div class="gal-name">Πρωταθλήτρια Ελλάδος</div><div class="gal-ach">Πανελλήνιο Πρωτάθλημα Έλλη Αράπογλου — Χρυσό Μετάλλιο</div></div>
@@ -282,6 +282,9 @@
         </div>
         <div class="gal-card" data-cat="athletes" style="background-image:url('./images/706651010_1532092198476633_2605190854448136597_n.jpg')" onclick="openLb('./images/706651010_1532092198476633_2605190854448136597_n.jpg','Με τον Προπονητή','Διεθνείς Αγώνες — Χρυσά Μετάλλια')">
           <div class="gal-overlay"><div class="gal-name">Με τον Προπονητή</div><div class="gal-ach">Διεθνείς Αγώνες — Χρυσά Μετάλλια</div></div>
+        </div>
+        <div class="gal-card" data-cat="parakarate" style="background-image:url('./images/παρακαρατε_πρωταθλημα.jpg')" onclick="openLb('./images/παρακαρατε_πρωταθλημα.jpg','Παρακαράτε — Πανελλήνιο Πρωτάθλημα','Χαλκίδα — Χρυσό Μετάλλιο')">
+          <div class="gal-overlay"><div class="gal-name">🥇 Πανελλήνιο Παρακαράτε</div><div class="gal-ach">Χαλκίδα — Χρυσό Μετάλλιο</div></div>
         </div>
         <div class="gal-card" data-cat="dojo" style="background-image:url('./images/20240619_190709.jpg')" onclick="openLb('./images/20240619_190709.jpg','Προπόνηση Παιδικού Τμήματος','Kumite Παιδιών — Το Dojo μας')">
           <div class="gal-overlay"><div class="gal-name">Προπόνηση Παιδικού Τμήματος</div><div class="gal-ach">Kumite Παιδιών — Το Dojo μας</div></div>
