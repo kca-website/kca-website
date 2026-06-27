@@ -10,14 +10,24 @@
   <meta property="og:image" content="./logo.png">
   <link rel="icon" type="image/png" href="./logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1W8CHQW579"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1W8CHQW579');
-</script>
+  <!-- Google Analytics — φορτώνει μόνο μετά από συγκατάθεση -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    function loadGA(){
+      if(localStorage.getItem('kca_cookies')==='accepted'){
+        var s=document.createElement('script');
+        s.async=true;
+        s.src='https://www.googletagmanager.com/gtag/js?id=G-1W8CHQW579';
+        document.head.appendChild(s);
+        s.onload=function(){
+          gtag('js',new Date());
+          gtag('config','G-1W8CHQW579');
+        };
+      }
+    }
+    loadGA();
+  </script>
   <meta name="google-site-verification" content="TRyO3cLKHosurkJXWP_0Tj-oHz1UdGNeT1Zbl_h3lTk" />
   <script type="application/ld+json">
   {
@@ -151,6 +161,9 @@
     .f-copy{color:#555;font-size:.72rem;letter-spacing:1px}
     .f-soc{margin-top:.6rem}
     .f-soc a{color:var(--red);text-decoration:none;margin:0 .6rem;font-size:.82rem}
+    .f-legal{margin-top:.5rem}
+    .f-legal a{color:#444;font-size:.68rem;text-decoration:none;cursor:pointer;transition:color .2s}
+    .f-legal a:hover{color:#888}
     .gallery{background:#1a1a1a}
     .gallery .sec-title{color:#fff}
     .gal-tabs{display:flex;gap:.6rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
@@ -168,10 +181,132 @@
     .lb img{max-width:100%;max-height:80vh;object-fit:contain;border:2px solid #333}
     .lb-cap{color:#ccc;font-family:'Oswald',sans-serif;margin-top:.8rem;font-size:1rem;letter-spacing:1px}
     .lb-close{position:absolute;top:-2rem;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
-    @media(max-width:768px){.nav-links{display:none}.hamburger{display:block}.hero{padding:80px 1.5rem 20px}.hero-stats{gap:1.2rem}.section{padding:50px 1.25rem}.gal-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.gal-card{height:170px}}
+
+    /* ── COOKIE BANNER ── */
+    #cookieBanner{
+      position:fixed;bottom:0;left:0;right:0;z-index:3000;
+      background:rgba(18,18,18,.97);
+      border-top:1px solid #2a2a2a;
+      padding:10px 1.5rem;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      flex-wrap:wrap;
+      font-size:.73rem;color:#888;
+      backdrop-filter:blur(8px);
+      transition:transform .3s ease;
+    }
+    #cookieBanner.hidden{transform:translateY(110%)}
+    #cookieBanner p{margin:0;line-height:1.5;flex:1;min-width:200px}
+    #cookieBanner a{color:#666;text-decoration:underline;cursor:pointer}
+    .ck-btns{display:flex;gap:.5rem;flex-shrink:0}
+    .ck-accept{background:var(--red);color:#fff;border:none;padding:6px 16px;font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+    .ck-accept:hover{opacity:.85}
+    .ck-decline{background:transparent;color:#555;border:1px solid #333;padding:6px 12px;font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:color .2s,border-color .2s}
+    .ck-decline:hover{color:#888;border-color:#555}
+
+    /* ── GDPR CHECKBOX ── */
+    .gdpr-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:1.15rem}
+    .gdpr-row input[type="checkbox"]{margin-top:3px;accent-color:var(--red);cursor:pointer;flex-shrink:0}
+    .gdpr-row label{font-size:.78rem;color:#777;line-height:1.5;cursor:pointer}
+    .gdpr-row a{color:var(--red);text-decoration:none}
+    .gdpr-row a:hover{text-decoration:underline}
+
+    /* ── PRIVACY MODAL ── */
+    #privacyModal{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.85);
+      z-index:4000;align-items:center;justify-content:center;
+      padding:1rem;
+    }
+    #privacyModal.open{display:flex}
+    .pm-inner{
+      background:#1e1e1e;
+      border:1px solid #333;
+      border-top:3px solid var(--red);
+      max-width:620px;width:100%;
+      max-height:80vh;
+      overflow-y:auto;
+      padding:2rem;
+      position:relative;
+    }
+    .pm-inner::-webkit-scrollbar{width:4px}
+    .pm-inner::-webkit-scrollbar-track{background:#111}
+    .pm-inner::-webkit-scrollbar-thumb{background:#333}
+    .pm-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:#555;font-size:1.4rem;cursor:pointer;transition:color .2s;line-height:1}
+    .pm-close:hover{color:#fff}
+    .pm-title{font-family:'Oswald',sans-serif;color:#fff;font-size:1.2rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:1.2rem;padding-right:1.5rem}
+    .pm-section{margin-bottom:1.1rem}
+    .pm-section h4{font-family:'Oswald',sans-serif;color:var(--red);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem}
+    .pm-section p,.pm-section ul{color:#888;font-size:.78rem;line-height:1.7}
+    .pm-section ul{padding-left:1rem}
+    .pm-section ul li{margin-bottom:.2rem}
+    .pm-section a{color:#666;text-decoration:underline}
+
+    @media(max-width:768px){
+      .nav-links{display:none}.hamburger{display:block}
+      .hero{padding:80px 1.5rem 20px}.hero-stats{gap:1.2rem}
+      .section{padding:50px 1.25rem}
+      .gal-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.gal-card{height:170px}
+      #cookieBanner{padding:10px 1rem}
+    }
   </style>
 </head>
 <body>
+
+  <!-- ── COOKIE BANNER ── -->
+  <div id="cookieBanner">
+    <p>Χρησιμοποιούμε cookies ανάλυσης επισκεψιμότητας (Google Analytics). <a onclick="openPrivacy()" href="#">Πολιτική Απορρήτου</a></p>
+    <div class="ck-btns">
+      <button class="ck-decline" onclick="setCookies('declined')">Μόνο απαραίτητα</button>
+      <button class="ck-accept" onclick="setCookies('accepted')">Αποδοχή</button>
+    </div>
+  </div>
+
+  <!-- ── PRIVACY POLICY MODAL ── -->
+  <div id="privacyModal" onclick="closePrivacy()">
+    <div class="pm-inner" onclick="event.stopPropagation()">
+      <button class="pm-close" onclick="closePrivacy()">✕</button>
+      <div class="pm-title">Πολιτική Απορρήτου</div>
+
+      <div class="pm-section">
+        <h4>Υπεύθυνος Επεξεργασίας</h4>
+        <p>Αθλητικός Σύλλογος Καράτε Αμαρουσίου «Ο Δρόμος της Ειρήνης»<br>
+        Δημητρίου Ράλλη 11, Μαρούσι, Αττική<br>
+        Email: <a href="mailto:karateclubamarousiou@gmail.com">karateclubamarousiou@gmail.com</a></p>
+      </div>
+
+      <div class="pm-section">
+        <h4>Τι δεδομένα συλλέγουμε</h4>
+        <ul>
+          <li><strong style="color:#aaa">Φόρμα εγγραφής:</strong> Όνομα, email, τηλέφωνο, ηλικία — αποκλειστικά για επικοινωνία σχετικά με εγγραφή στο σύλλογο.</li>
+          <li><strong style="color:#aaa">Google Analytics (μόνο με συγκατάθεση):</strong> Ανώνυμα στατιστικά επισκεψιμότητας για βελτίωση του site.</li>
+        </ul>
+      </div>
+
+      <div class="pm-section">
+        <h4>Πού αποθηκεύονται</h4>
+        <ul>
+          <li>Formspree Inc. — επεξεργασία φορμών εγγραφής</li>
+          <li>Google LLC — Analytics (ανώνυμα, με anonymize IP)</li>
+        </ul>
+      </div>
+
+      <div class="pm-section">
+        <h4>Χρόνος διατήρησης</h4>
+        <p>Δεδομένα φορμών: διαγράφονται μετά την ολοκλήρωση της επικοινωνίας. Δεδομένα Analytics: 14 μήνες (ρύθμιση Google).</p>
+      </div>
+
+      <div class="pm-section">
+        <h4>Τα δικαιώματά σας</h4>
+        <p>Έχετε δικαίωμα πρόσβασης, διόρθωσης ή διαγραφής των δεδομένων σας. Επικοινωνήστε στο <a href="mailto:karateclubamarousiou@gmail.com">karateclubamarousiou@gmail.com</a>.</p>
+      </div>
+
+      <div class="pm-section">
+        <h4>Cookies</h4>
+        <p>Χρησιμοποιούμε cookies μόνο εφόσον επιλέξετε «Αποδοχή». Μπορείτε να αλλάξετε την επιλογή σας ανά πάσα στιγμή διαγράφοντας τα cookies του browser σας.</p>
+      </div>
+    </div>
+  </div>
+
   <nav>
     <a class="nav-logo" href="#hero"><img src="./logo.png" alt="KCA Logo"></a>
     <div class="nav-links"><a href="#about">Για εμάς</a><a href="#departments">Τμήματα</a><a href="#coaches">Προπονητές</a><a href="#schedule">Πρόγραμμα</a><a href="#gallery">Gallery</a><a href="#registration">Εγγραφή</a><a href="#contact">Επικοινωνία</a></div>
@@ -276,12 +411,12 @@
         <button class="gal-tab" onclick="filterGal('parakarate',this)">Παρακαράτε</button>
       </div>
       <div class="gal-grid" id="galGrid">
-        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xarisgiannakos.jpg')" onclick="openLb('./images/xarisgiannakos.jpg','🥇 Χάρης Γιαννακός — Πρωταθλητής Ευρώπης','WKF Junior & Cadet European Championships — Prague 2022')">
+        <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xarisgiannakos.jpg')" onclick="openLb('./images/xarisgiannakos.jpg','🥇 Χάρης Γιαννακός — Πρωταθλητής Ευρώπης','WKF European Championships — Prague 2022')">
           <div class="gal-overlay"><div class="gal-name">🥇 Πρωταθλητής Ευρώπης</div><div class="gal-ach">WKF European Championships — Prague 2022</div></div>
         </div>
         <div class="gal-card" data-cat="athletes" style="background-image:url('./images/xaris_babis.jpg')" onclick="openLb('./images/xaris_babis.jpg','Πρωταθλητές Ελλάδος','Χάρης Γιαννακός &amp; Μπάμπης Καμπουγέρης — Χρυσά Μετάλλια')">
-  <div class="gal-overlay"><div class="gal-name">Πρωταθλητές Ελλάδος</div><div class="gal-ach">Χάρης Γιαννακός &amp; Μπάμπης Καμπουγέρης — Χρυσά Μετάλλια</div></div>
-</div>
+          <div class="gal-overlay"><div class="gal-name">Πρωταθλητές Ελλάδος</div><div class="gal-ach">Χάρης Γιαννακός &amp; Μπάμπης Καμπουγέρης — Χρυσά Μετάλλια</div></div>
+        </div>
         <div class="gal-card" data-cat="athletes" style="background-image:url('./images/eli.jpg')" onclick="openLb('./images/eli.jpg','Πρωταθλήτρια Ελλάδος','Πανελλήνιο Πρωτάθλημα — Χρυσό Μετάλλιο')">
           <div class="gal-overlay"><div class="gal-name">Πρωταθλήτρια Ελλάδος</div><div class="gal-ach">Πανελλήνιο Πρωτάθλημα Έλλη Αράπογλου — Χρυσό Μετάλλιο</div></div>
         </div>
@@ -328,6 +463,11 @@
         <div class="fg"><label class="fl">ΗΛΙΚΙΑ</label><input class="fi" type="number" name="age" placeholder="π.χ. 8" min="4" max="80"></div>
         <div class="fg"><label class="fl">ΤΜΗΜΑ ΕΝΔΙΑΦΕΡΟΝΤΟΣ</label><select class="fi fs" name="department"><option value="">— Επιλέξτε τμήμα —</option><option>Παιδικά</option><option>Εφηβικά</option><option>Ενηλίκων</option><option>Αγωνιστικό</option><option>Πρόγραμμα Ενδυνάμωσης</option></select></div>
         <div class="fg"><label class="fl">ΜΗΝΥΜΑ / ΕΡΩΤΗΣΕΙΣ</label><textarea class="fi ft" name="message" rows="3" placeholder="Οποιαδήποτε ερώτηση..."></textarea></div>
+        <!-- GDPR Checkbox -->
+        <div class="gdpr-row">
+          <input type="checkbox" id="gdprCheck" name="gdpr" required>
+          <label for="gdprCheck">Αποδέχομαι την επεξεργασία των στοιχείων μου αποκλειστικά για τη διαδικασία εγγραφής, σύμφωνα με την <a onclick="openPrivacy()" href="#">Πολιτική Απορρήτου</a>.</label>
+        </div>
         <button type="submit" class="fsubmit">ΑΠΟΣΤΟΛΗ ΑΙΤΗΣΗΣ</button>
         <p style="text-align:center;margin-top:1rem;font-size:.8rem;color:#888">ή στείλτε απευθείας: <a href="mailto:karateclubamarousiou@gmail.com" style="color:var(--red)">karateclubamarousiou@gmail.com</a></p>
         <div id="formMsg"></div>
@@ -356,12 +496,32 @@
     <div class="f-badge">KARATE</div>
     <div class="f-copy">© 2025 Αθλητικός Σύλλογος Καράτε Αμαρουσίου «Ο Δρόμος της Ειρήνης» | kca.gr</div>
     <div class="f-soc"><a href="https://www.instagram.com/karate_club_amarousiou/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/profile.php?id=100050276028564" target="_blank" rel="noopener">Facebook</a></div>
+    <div class="f-legal"><a onclick="openPrivacy()" href="#">Πολιτική Απορρήτου</a></div>
   </footer>
 
   <script>
+    /* ── NAV ── */
     function toggleMenu(){document.getElementById('mm').classList.toggle('open')}
     function closeMenu(){document.getElementById('mm').classList.remove('open')}
     window.addEventListener('scroll',closeMenu);
+
+    /* ── COOKIE BANNER ── */
+    (function(){
+      var b=document.getElementById('cookieBanner');
+      if(localStorage.getItem('kca_cookies')){b.classList.add('hidden');}
+    })();
+    function setCookies(choice){
+      localStorage.setItem('kca_cookies',choice);
+      document.getElementById('cookieBanner').classList.add('hidden');
+      if(choice==='accepted') loadGA();
+    }
+
+    /* ── PRIVACY MODAL ── */
+    function openPrivacy(){document.getElementById('privacyModal').classList.add('open');document.body.style.overflow='hidden';}
+    function closePrivacy(){document.getElementById('privacyModal').classList.remove('open');document.body.style.overflow='';}
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeLb();closePrivacy();}});
+
+    /* ── GALLERY ── */
     function filterGal(cat,btn){
       document.querySelectorAll('.gal-card').forEach(function(el){
         el.style.display=(cat==='all'||el.dataset.cat===cat)?'':'none';
@@ -379,7 +539,8 @@
       document.getElementById('lb').classList.remove('open');
       document.body.style.overflow='';
     }
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
+
+    /* ── FORM ── */
     async function handleSubmit(e){
       e.preventDefault();
       var b=e.target.querySelector('.fsubmit'),m=document.getElementById('formMsg');
