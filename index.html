@@ -188,6 +188,32 @@
     .lb-cap{color:#ccc;font-family:'Oswald',sans-serif;margin-top:.8rem;font-size:1rem;letter-spacing:1px}
     .lb-close{position:absolute;top:-2rem;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
 
+    /* ── ANNOUNCEMENT MODAL (καλοκαιρινή ενημέρωση) ── */
+    #announceModal{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.85);
+      z-index:4500;align-items:center;justify-content:center;
+      padding:1rem;
+    }
+    #announceModal.open{display:flex}
+    .an-inner{
+      background:#1e1e1e;
+      border:1px solid #333;
+      border-top:4px solid var(--red);
+      max-width:440px;width:100%;
+      text-align:center;
+      padding:2.4rem 2rem 2rem;
+      position:relative;
+    }
+    .an-close{position:absolute;top:.9rem;right:.9rem;background:none;border:none;color:var(--gray-a11y);font-size:1.3rem;cursor:pointer;transition:color .2s;line-height:1}
+    .an-close:hover{color:#fff}
+    .an-icon{font-size:2.6rem;margin-bottom:.6rem}
+    .an-title{font-family:'Oswald',sans-serif;color:#fff;font-size:1.5rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
+    .an-text{color:#ccc;font-size:.9rem;line-height:1.7;margin-bottom:.8rem}
+    .an-text2{color:var(--gray-a11y);font-size:.82rem;line-height:1.6;margin-bottom:1.5rem;font-style:italic}
+    .an-btn{background:var(--red);color:#fff;border:none;padding:12px 28px;cursor:pointer;font-family:'Oswald',sans-serif;font-weight:600;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;transition:opacity .2s}
+    .an-btn:hover{opacity:.85}
+
     /* ── COOKIE BANNER ── */
     #cookieBanner{
       position:fixed;bottom:0;left:0;right:0;z-index:3000;
@@ -260,6 +286,17 @@
 
   <a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
   <h1 class="visually-hidden">Karate Club Αμαρουσίου «Ο Δρόμος της Ειρήνης» — Σχολή Wado-Ryu Καράτε στο Μαρούσι &amp; Βόρεια Προάστια</h1>
+
+  <!-- ── ANNOUNCEMENT MODAL (καλοκαιρινή ενημέρωση) ── -->
+  <div id="announceModal" onclick="closeAnnounce()">
+    <div class="an-inner" role="dialog" aria-modal="true" aria-labelledby="anTitle" onclick="event.stopPropagation()">
+      <button class="an-close" onclick="closeAnnounce()" aria-label="Κλείσιμο ανακοίνωσης">✕</button>
+      <div class="an-icon" aria-hidden="true">🥋</div>
+      <div class="an-title" id="anTitle">Καλό Καλοκαίρι!</div>
+      <p class="an-text">Οι προπονήσεις του Karate Club Αμαρουσίου διακόπτονται για το καλοκαίρι. Σας περιμένουμε ξανά στο dojo από την <strong>Τρίτη 1η Σεπτεμβρίου</strong>.</p>
+      <p class="an-text2">Σας ευχόμαστε ένα υπέροχο καλοκαίρι, γεμάτο ξεκούραση και δύναμη! ☀️</p>
+    </div>
+  </div>
 
   <!-- ── COOKIE BANNER ── -->
   <div id="cookieBanner">
@@ -524,6 +561,24 @@
     }
     window.addEventListener('scroll',closeMenu);
 
+    /* ── ANNOUNCEMENT (καλοκαιρινή ενημέρωση) ── */
+    /* Άλλαξε το ANNOUNCE_KEY όποτε θέλεις να ξαναδείξεις την ανακοίνωση σε νέους επισκέπτες (π.χ. την επόμενη χρονιά) */
+    var ANNOUNCE_KEY='kca_announce_2026_summer';
+    (function(){
+      if(!localStorage.getItem(ANNOUNCE_KEY)){
+        lastFocusedEl=document.activeElement;
+        document.getElementById('announceModal').classList.add('open');
+        document.body.style.overflow='hidden';
+        document.querySelector('.an-close').focus();
+      }
+    })();
+    function closeAnnounce(){
+      localStorage.setItem(ANNOUNCE_KEY,'seen');
+      document.getElementById('announceModal').classList.remove('open');
+      document.body.style.overflow='';
+      if(lastFocusedEl) lastFocusedEl.focus();
+    }
+
     /* ── COOKIE BANNER ── */
     (function(){
       var b=document.getElementById('cookieBanner');
@@ -561,9 +616,11 @@
       if(lastFocusedEl) lastFocusedEl.focus();
     }
     document.addEventListener('keydown',function(e){
-      if(e.key==='Escape'){closeLb();closePrivacy();}
+      if(e.key==='Escape'){closeLb();closePrivacy();closeAnnounce();}
       if(e.key==='Tab'){
-        if(document.getElementById('privacyModal').classList.contains('open')){
+        if(document.getElementById('announceModal').classList.contains('open')){
+          trapFocus(document.querySelector('.an-inner'),e);
+        }else if(document.getElementById('privacyModal').classList.contains('open')){
           trapFocus(document.querySelector('.pm-inner'),e);
         }else if(document.getElementById('lb').classList.contains('open')){
           trapFocus(document.querySelector('.lb-inner'),e);
